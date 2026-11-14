@@ -1,7 +1,7 @@
 /* AcadLink website: theme, header, reveal animations, journey rail, counters and the inquiry form. */
 (function () {
   'use strict';
-  var EMAIL = 'jeremiahmacailao110102@gmail.com';
+  var EMAIL = 'acadlink20206@gmail.com';
   var ENDPOINT = 'https://formsubmit.co/ajax/' + EMAIL;
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
