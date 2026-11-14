@@ -259,7 +259,7 @@
       .then(function (res) {
         if (!res.ok || res.j.ok === false || res.j.errors) throw new Error('send failed');
         form.reset(); $$('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
-        say('Thank you! Your inquiry was sent.', 'ok');
+        say('Thank you! Your inquiry was sent. We will reply to ' + d.email + ' soon.', 'ok');
       })
       .catch(function () {
         status.className = 'form-status err';
