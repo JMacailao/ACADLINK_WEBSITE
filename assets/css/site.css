@@ -393,3 +393,20 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
 }
 @media (max-width: 374px) { .brand img { width: 34px; height: 34px; } .brand-name { font-size: .98rem; } .nav-cta-m { padding: 8px 11px; font-size: .78rem; } .nav-inner { gap: 6px; } .theme-toggle, .nav-toggle { width: 36px; height: 36px; } }
 @media (max-width: 349px) { .brand-name { display: none; } }
+
+/* Modules on phones: swipeable cards with the same stepper */
+@media (max-width: 760px) {
+  #pdDots { margin-top: 0; margin-bottom: 4px; }
+  .pd-grid { display: flex; align-items: stretch; gap: 14px; width: 100%; margin: 0; padding: 12px 16px 28px; border: 0; border-radius: 0; background: none; box-shadow: none;
+    overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-inline: 16px; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .pd-grid::-webkit-scrollbar { display: none; }
+  .pd-grid .pd-col { flex: 0 0 86%; scroll-snap-align: start; opacity: 1; transform: none; padding: 26px 22px 18px;
+    background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--ink); border-radius: 26px; box-shadow: var(--shadow-soft); }
+  .pd-grid .pd-core { background: var(--mint-soft); border-top-color: var(--green-2); }
+  .pd-num { font-size: 2.6rem; }
+  .pd-cat { font-size: .82rem; margin-top: 14px; }
+  .pd-desc { font-size: .95rem; margin-bottom: 18px; }
+  .pd-row { padding: 16px 0; } .pd-row b { font-size: 1.05rem; } .pd-row small { font-size: .85rem; }
+  .pd .marquee { margin-top: 20px; }
+}
+@media (max-width: 380px) { .pd-grid .pd-col { flex-basis: 88%; } }

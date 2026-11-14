@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=5">
+<link rel="stylesheet" href="assets/css/site.css?v=6">
 <script>/* set the theme before the page paints (no flash) */try{var t=localStorage.getItem('acadlink-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
@@ -131,7 +131,8 @@
     <div><p class="kicker reveal">The AcadLink platform</p><h2 class="reveal">Everything your school <em>needs.</em></h2></div>
     <p class="body reveal">From the registrar's window to the canteen counter, every AcadLink workspace works as part of one connected system. Start with what you need; add the rest later.</p>
   </div>
-  <div class="wrap pd-grid">
+  <div class="wrap jr-dots" id="pdDots" aria-label="Module groups"><div class="jr-dots-track" id="pdDotsTrack"></div><span class="jr-count" id="pdCount" aria-live="polite">01 / 04</span></div>
+  <div class="wrap pd-grid" id="pdGrid">
     <div class="pd-col reveal"><span class="pd-num">01</span><p class="pd-cat">Academics</p><p class="pd-desc">Teaching and grading.</p>
       <a class="pd-row" href="#contact"><span><b>Grading System</b><small>Classes, grade sheets, transcripts</small></span><i aria-hidden="true">›</i></a>
       <a class="pd-row" href="#contact"><span><b>LMS</b><small>Classwork, quizzes, attendance</small></span><i aria-hidden="true">›</i></a></div>
@@ -223,6 +224,6 @@
   </div>
   <div class="wrap foot-bottom"><span>© <span id="year">2026</span> AcadLink</span><a href="#top">Back to top ↑</a></div>
 </footer>
-<script src="assets/js/site.js?v=2" defer></script>
+<script src="assets/js/site.js?v=3" defer></script>
 </body>
 </html>
