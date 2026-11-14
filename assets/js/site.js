@@ -67,21 +67,75 @@
     })(performance.now());
   }, { threshold: 0.6 });
 
-  /* Journey: the line fills as you scroll and each step lights up when the line reaches it */
+  /* Journey. Big screens: a snake path runs from step to step, alternating sides, and fills as you scroll.
+     Tablets: a straight line that fills. Phones: swipe cards (below). */
   var rail = $('#journeyRail'), fill = $('#jrFill'), steps = $$('.jr-step'), end = $('#jrEnd');
+  var bigMQ = window.matchMedia('(min-width: 861px)');
+  var NS = 'http://www.w3.org/2000/svg', snake = null, base = null, prog = null, samples = [], total = 0;
+  if (rail) {
+    snake = document.createElementNS(NS, 'svg'); snake.setAttribute('class', 'jr-path'); snake.setAttribute('aria-hidden', 'true');
+    base = document.createElementNS(NS, 'path'); base.setAttribute('class', 'base');
+    prog = document.createElementNS(NS, 'path'); prog.setAttribute('class', 'prog');
+    snake.appendChild(base); snake.appendChild(prog); rail.insertBefore(snake, rail.firstChild);
+  }
+  function roundedPath(pts, r) {
+    var d = 'M' + pts[0][0] + ' ' + pts[0][1];
+    for (var i = 1; i < pts.length - 1; i++) {
+      var p0 = pts[i - 1], c = pts[i], p1 = pts[i + 1];
+      var ax = Math.sign(c[0] - p0[0]), ay = Math.sign(c[1] - p0[1]), bx = Math.sign(p1[0] - c[0]), by = Math.sign(p1[1] - c[1]);
+      if (ax === bx && ay === by) { d += ' L' + c[0] + ' ' + c[1]; continue; }
+      var rr = Math.min(r, Math.hypot(c[0] - p0[0], c[1] - p0[1]) / 2, Math.hypot(p1[0] - c[0], p1[1] - c[1]) / 2);
+      d += ' L' + (c[0] - ax * rr) + ' ' + (c[1] - ay * rr) + ' Q' + c[0] + ' ' + c[1] + ' ' + (c[0] + bx * rr) + ' ' + (c[1] + by * rr);
+    }
+    var l = pts[pts.length - 1]; return d + ' L' + l[0] + ' ' + l[1];
+  }
+  function buildSnake() {
+    if (!snake || !bigMQ.matches) { samples = []; return; }
+    var R = rail.getBoundingClientRect(), pts = [];
+    var nodes = steps.map(function (st) { var n = st.querySelector('.jr-node').getBoundingClientRect(); return [Math.round(n.left + n.width / 2 - R.left), Math.round(n.top + n.height / 2 - R.top)]; });
+    nodes.forEach(function (n, i) {
+      pts.push(n);
+      var nextTop = (i < steps.length - 1 ? steps[i + 1].getBoundingClientRect().top : end.getBoundingClientRect().top - 30) - R.top;
+      var nx = i < steps.length - 1 ? nodes[i + 1][0] : Math.round(R.width / 2);
+      pts.push([n[0], Math.round(nextTop)]); pts.push([nx, Math.round(nextTop)]);
+    });
+    var E = end.querySelector('.jr-mark').getBoundingClientRect();
+    pts.push([Math.round(R.width / 2), Math.round(E.top - R.top)]);
+    snake.setAttribute('viewBox', '0 0 ' + Math.round(R.width) + ' ' + Math.round(R.height));
+    var d = roundedPath(pts, 36); base.setAttribute('d', d); prog.setAttribute('d', d);
+    total = prog.getTotalLength(); prog.style.strokeDasharray = total + ' ' + total;
+    samples = [];
+    for (var L = 0; L <= total; L += 6) samples.push([L, prog.getPointAtLength(L).y]);
+    samples.push([total, prog.getPointAtLength(total).y]);
+    if (showAll) prog.style.strokeDashoffset = 0;
+  }
   function onScrollJourney() {
     if (!rail) return;
-    var line = fill.parentNode.getBoundingClientRect();
-    var mark = window.innerHeight * 0.6;
-    var pct = Math.max(0, Math.min(1, (mark - line.top) / line.height));
-    fill.style.height = (pct * 100) + '%';
-    steps.forEach(function (s) {
-      var n = s.querySelector('.jr-node').getBoundingClientRect();
-      s.classList.toggle('on', n.top + n.height / 2 < mark);
+    var mark = window.innerHeight * 0.6, done;
+    if (bigMQ.matches && samples.length) {
+      var y = mark - rail.getBoundingClientRect().top, len = 0;
+      for (var i = 0; i < samples.length && samples[i][1] <= y; i++) len = samples[i][0];
+      prog.style.strokeDashoffset = total - len;
+      done = len >= total - 2;
+    } else {
+      var line = fill.parentNode.getBoundingClientRect();
+      var pct = Math.max(0, Math.min(1, (mark - line.top) / line.height));
+      fill.style.height = (pct * 100) + '%'; done = pct >= 1;
+    }
+    steps.forEach(function (st) {
+      var n = st.querySelector('.jr-node').getBoundingClientRect();
+      st.classList.toggle('on', n.top + n.height / 2 < mark);
     });
-    if (pct >= 1) end.classList.add('is-done');
+    if (done) end.classList.add('is-done');
   }
-  if (showAll && rail) { fill.style.height = '100%'; steps.forEach(function (s) { s.classList.add('on'); }); end.classList.add('is-done'); }
+  function rebuild() { buildSnake(); if (!showAll) onScrollJourney(); }
+  if (rail) {
+    if ('ResizeObserver' in window) new ResizeObserver(rebuild).observe(rail);
+    window.addEventListener('load', rebuild);
+    if (bigMQ.addEventListener) bigMQ.addEventListener('change', rebuild);
+    rebuild();
+  }
+  if (showAll && rail) { fill.style.height = '100%'; steps.forEach(function (st) { st.classList.add('on'); }); end.classList.add('is-done'); }
 
   /* Phones: swipeable cards with a numbered stepper (journey and modules) */
   function pad(n) { return (n < 10 ? '0' : '') + n; }
