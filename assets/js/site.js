@@ -70,7 +70,7 @@
   /* Journey. Big screens: a snake path runs from step to step, alternating sides, and fills as you scroll.
      Tablets: a straight line that fills. Phones: swipe cards (below). */
   var rail = $('#journeyRail'), fill = $('#jrFill'), steps = $$('.jr-step'), end = $('#jrEnd');
-  var bigMQ = window.matchMedia('(min-width: 861px)');
+  var bigMQ = window.matchMedia('(min-width: 761px)');
   var NS = 'http://www.w3.org/2000/svg', snake = null, base = null, prog = null, samples = [], total = 0;
   if (rail) {
     snake = document.createElementNS(NS, 'svg'); snake.setAttribute('class', 'jr-path'); snake.setAttribute('aria-hidden', 'true');

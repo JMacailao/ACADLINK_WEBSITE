@@ -445,12 +445,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
 @media (max-width: 380px) { .why-grid .why-item, .why-grid .why-item + .why-item { flex-basis: 88%; } }
 
 /* Journey zigzag stays on big screens and laptops down to 861px; one column below that */
-@media (max-width: 1000px) and (min-width: 861px) {
+@media (max-width: 1000px) and (min-width: 761px) {
   .jr-step { gap: 70px; }
   .jr-big { font-size: 5.6rem; }
   .jr-copy h3 { font-size: 1.55rem; }
 }
-@media (max-width: 860px) {
+@media (max-width: 760px) {
   .jr-line { left: 26px; } .jr-node { left: 26px; top: 64px; }
   .jr-step { grid-template-columns: 1fr; gap: 24px; padding: 40px 0 40px 74px; }
   .jr-step:nth-of-type(even) .jr-copy { order: 0; }
@@ -459,7 +459,7 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
 
 /* Journey snake path (big screens): nodes alternate sides; the line curves across between steps */
 .jr-path { display: none; }
-@media (min-width: 861px) {
+@media (min-width: 761px) {
   .jr .jr-line { display: none; }
   .jr-path { display: block; position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
   .jr-path .base { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 7 9; stroke-linecap: round; }
@@ -474,4 +474,16 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
   .jr-big { top: 18px; }
   .jr-visual { margin-top: 30px; }
   .jr-end { padding-top: 0; }
+}
+
+/* Tablets: tighter zigzag so text and screenshot both fit beside the path */
+@media (max-width: 900px) and (min-width: 761px) {
+  .jr-step { gap: 36px; padding: 54px 0; }
+  .jr-node { width: 44px; height: 44px; margin: -22px 0 0 -22px; top: 68px; font-size: .9rem; }
+  .jr-step:nth-of-type(odd) .jr-node { left: 22px; } .jr-step:nth-of-type(even) .jr-node { left: calc(100% - 22px); }
+  .jr-step:nth-of-type(odd) .jr-copy { padding-left: 62px; } .jr-step:nth-of-type(even) .jr-copy { padding-right: 62px; }
+  .jr-step:nth-of-type(odd) .jr-big { left: 62px; } .jr-step:nth-of-type(even) .jr-big { right: 62px; }
+  .jr-big { font-size: 4.6rem; }
+  .jr-copy h3 { font-size: 1.4rem; } .jr-copy p, .jr-copy li { font-size: .92rem; }
+  .jr-visual { margin-top: 40px; }
 }
