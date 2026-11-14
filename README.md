@@ -2,7 +2,8 @@
 
 The marketing website for AcadLink, a school management system for Philippine schools.
 
-- Open `index.html` in a browser, or host this folder on any static host (GitHub Pages, Netlify, cPanel).
+- Live at **https://acadlink.site** (GitHub Pages; the `CNAME` file holds the domain).
+- Open `index.html` in a browser to preview it locally.
 - Light and dark mode, scroll animations, and an inquiry form that emails acadlink20206@gmail.com through Formspree (form xaeoqlyk).
 - Contact: 0977 698 0253
 

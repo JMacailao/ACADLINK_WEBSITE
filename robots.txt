@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://acadlink.site/sitemap.xml
