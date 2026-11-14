@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://acadlink.site/sitemap.xml
+Sitemap: https://www.acadlink.site/sitemap.xml
