@@ -119,6 +119,7 @@
   makeStepper(rail, steps, $('#jrDotsTrack'), $('#jrCount'), 'Step');
   makeStepper($('#pdGrid'), $$('#pdGrid .pd-col'), $('#pdDotsTrack'), $('#pdCount'), 'Group');
   makeStepper($('#slGrid'), $$('#slGrid .sl-card'), $('#slDotsTrack'), $('#slCount'), 'Feature');
+  makeStepper($('#whyGrid'), $$('#whyGrid .why-item'), $('#whyDotsTrack'), $('#whyCount'), 'Reason');
 
   /* "More about this step" on the journey cards (phones) */
   steps.forEach(function (s) {
