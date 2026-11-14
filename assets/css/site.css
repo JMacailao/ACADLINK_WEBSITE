@@ -496,3 +496,10 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
   #jrDots { gap: 6px; } #jrDots .jr-dots-track { gap: 2px; } #jrDots .jr-dot { width: 26px; height: 26px; font-size: .74rem; } #jrDots .jr-count { font-size: .78rem; }
   #jrDots .jr-dot.active { transform: scale(1.12); box-shadow: 0 0 0 4px var(--mint-soft); }
 }
+
+/* Modules: Canteen and Library are one "Campus" column on big screens, two cards on phones */
+.pd-mobile { display: none; }
+@media (max-width: 760px) {
+  .pd-grid .pd-desktop { display: none; }
+  .pd-grid .pd-mobile { display: block; }
+}

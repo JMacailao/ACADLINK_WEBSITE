@@ -171,7 +171,7 @@
     setActive(0);
   }
   makeStepper(rail, steps, $('#jrDotsTrack'), $('#jrCount'), 'Step');
-  makeStepper($('#pdGrid'), $$('#pdGrid .pd-col'), $('#pdDotsTrack'), $('#pdCount'), 'Group');
+  makeStepper($('#pdGrid'), $$('#pdGrid .pd-col:not(.pd-desktop)'), $('#pdDotsTrack'), $('#pdCount'), 'Group');
   makeStepper($('#slGrid'), $$('#slGrid .sl-card'), $('#slDotsTrack'), $('#slCount'), 'Feature');
   makeStepper($('#whyGrid'), $$('#whyGrid .why-item'), $('#whyDotsTrack'), $('#whyCount'), 'Reason');
 
