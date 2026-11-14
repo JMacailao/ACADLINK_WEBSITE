@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=6">
+<link rel="stylesheet" href="assets/css/site.css?v=7">
 <script>/* set the theme before the page paints (no flash) */try{var t=localStorage.getItem('acadlink-theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
 </head>
 <body>
@@ -158,11 +158,12 @@
     <div><p class="kicker reveal">Security &amp; privacy</p><h2 class="reveal">Your school's data, <em>protected.</em></h2></div>
     <p class="body reveal">Security is part of every screen, not an add-on. Access follows roles, sensitive actions need approval, and every change is logged.</p>
   </div>
-  <div class="wrap sl-grid">
-    <div class="sl-card reveal"><h3>Roles &amp; permissions</h3><p>Groups for registrar, cashier, accounting, teachers, librarian, canteen and parents. View or edit, per module.</p></div>
-    <div class="sl-card reveal"><h3>Activity log</h3><p>Who did what and when: sign-ins, payments, grade changes, exports and restores.</p></div>
-    <div class="sl-card reveal"><h3>Data Privacy Act tools</h3><p>Privacy notice and consent at admission, "Download my data" for students, and retention reviews.</p></div>
-    <div class="sl-card reveal"><h3>Backup &amp; restore</h3><p>Full or partial backups by power.admin, with a safety copy before every restore.</p></div>
+  <div class="wrap jr-dots" id="slDots" aria-label="Security features"><div class="jr-dots-track" id="slDotsTrack"></div><span class="jr-count" id="slCount" aria-live="polite">01 / 04</span></div>
+  <div class="wrap sl-grid" id="slGrid">
+    <div class="sl-card reveal"><div class="sl-top"><span class="sl-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.2-7 9.5C8 19.2 5 15.5 5 11V6l7-3z"/><path d="M9 11.5l2 2 4-4"/></svg></span><span class="sl-num" aria-hidden="true">01</span></div><h3>Roles &amp; permissions</h3><p>Groups for registrar, cashier, accounting, teachers, librarian, canteen and parents. View or edit, per module.</p></div>
+    <div class="sl-card reveal"><div class="sl-top"><span class="sl-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></span><span class="sl-num" aria-hidden="true">02</span></div><h3>Activity log</h3><p>Who did what and when: sign-ins, payments, grade changes, exports and restores.</p></div>
+    <div class="sl-card reveal"><div class="sl-top"><span class="sl-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/><path d="M12 14.5v2"/></svg></span><span class="sl-num" aria-hidden="true">03</span></div><h3>Data Privacy Act tools</h3><p>Privacy notice and consent at admission, "Download my data" for students, and retention reviews.</p></div>
+    <div class="sl-card reveal"><div class="sl-top"><span class="sl-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.6L20 8.5"/><path d="M20 4v4.5h-4.5"/><path d="M20 12a8 8 0 0 1-13.7 5.6L4 15.5"/><path d="M4 20v-4.5h4.5"/></svg></span><span class="sl-num" aria-hidden="true">04</span></div><h3>Backup &amp; restore</h3><p>Full or partial backups by power.admin, with a safety copy before every restore.</p></div>
   </div>
 </section>
 
@@ -224,6 +225,6 @@
   </div>
   <div class="wrap foot-bottom"><span>© <span id="year">2026</span> AcadLink</span><a href="#top">Back to top ↑</a></div>
 </footer>
-<script src="assets/js/site.js?v=3" defer></script>
+<script src="assets/js/site.js?v=4" defer></script>
 </body>
 </html>
