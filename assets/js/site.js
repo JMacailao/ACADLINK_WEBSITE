@@ -2,7 +2,7 @@
 (function () {
   'use strict';
   var EMAIL = 'acadlink20206@gmail.com';
-  var ENDPOINT = 'https://formsubmit.co/ajax/' + EMAIL;
+  var ENDPOINT = 'https://formspree.io/f/xaeoqlyk'; // Formspree form; inquiries are delivered to the form owner's inbox
   var root = document.documentElement;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function (s, el) { return (el || document).querySelector(s); };
@@ -209,7 +209,7 @@
 
   var year = $('#year'); if (year) year.textContent = new Date().getFullYear();
 
-  /* Inquiry form: sends to the email through FormSubmit; opens the mail app if that fails */
+  /* Inquiry form: sends to the email through Formspree; opens the mail app if that fails */
   var form = $('#inquiry'), status = $('#formStatus');
   if (!form) return;
   var btn = form.querySelector('button[type=submit]'), btnHTML = btn.innerHTML;
@@ -244,7 +244,7 @@
   }
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    if (form.elements._honey.value) return; // bots fill the hidden field
+    if (form.elements._gotcha.value) return; // bots fill the hidden field
     var bad = validate();
     if (bad) { say('Please fill in your name, school, a valid email and a message.', 'err'); bad.focus(); return; }
     var d = collect();
@@ -252,12 +252,12 @@
     fetch(ENDPOINT, {
       method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        _subject: 'AcadLink inquiry: ' + d.school, _template: 'table', _captcha: 'false', _replyto: d.email,
-        Name: d.name, School: d.school, Email: d.email, Mobile: d.phone || '-', Role: d.role, 'Interested in': d.modules, Message: d.message
+        _subject: 'AcadLink inquiry: ' + d.school, _replyto: d.email, email: d.email,
+        Name: d.name, School: d.school, Mobile: d.phone || '-', Role: d.role, 'Interested in': d.modules, Message: d.message
       })
     }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
       .then(function (res) {
-        if (!res.ok || String(res.j.success) === 'false') throw new Error(res.j.message || 'send failed');
+        if (!res.ok || res.j.ok === false || res.j.errors) throw new Error('send failed');
         form.reset(); $$('[aria-invalid]', form).forEach(function (el) { el.removeAttribute('aria-invalid'); });
         say('Thank you! Your inquiry was sent. We will reply to ' + d.email + ' soon.', 'ok');
       })
