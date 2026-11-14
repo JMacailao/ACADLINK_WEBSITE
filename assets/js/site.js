@@ -83,6 +83,47 @@
   }
   if (showAll && rail) { fill.style.height = '100%'; steps.forEach(function (s) { s.classList.add('on'); }); end.classList.add('is-done'); }
 
+  /* Journey on phones: numbered stepper and "More about this step" */
+  var dotsTrack = $('#jrDotsTrack'), count = $('#jrCount'), dots = [];
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  if (rail && dotsTrack) {
+    steps.forEach(function (s, i) {
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'jr-dot'; d.textContent = i + 1; d.setAttribute('aria-label', 'Step ' + (i + 1));
+      d.addEventListener('click', function () { goStep(i); });
+      dotsTrack.appendChild(d); dots.push(d);
+      var copy = s.querySelector('.jr-copy'), more = document.createElement('button');
+      more.type = 'button'; more.className = 'jr-more-btn'; more.setAttribute('aria-expanded', 'false');
+      more.innerHTML = 'More about this step <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+      more.addEventListener('click', function () {
+        var open = s.classList.toggle('open');
+        more.setAttribute('aria-expanded', String(open));
+        more.firstChild.textContent = open ? 'Less about this step ' : 'More about this step ';
+      });
+      copy.appendChild(more);
+    });
+    var railPad = function () { return parseFloat(getComputedStyle(rail).paddingLeft) || 0; };
+    var goStep = function (i) { rail.scrollTo({ left: steps[i].offsetLeft - railPad(), behavior: reduce ? 'auto' : 'smooth' }); };
+    var current = -1;
+    var setActive = function (i) {
+      if (i === current) return; current = i;
+      dots.forEach(function (d, k) { d.classList.toggle('active', k === i); d.classList.toggle('done', k < i); if (k === i) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
+      count.textContent = pad(i + 1) + ' / ' + pad(steps.length);
+    };
+    var railTick = false;
+    rail.addEventListener('scroll', function () {
+      if (railTick) return; railTick = true;
+      requestAnimationFrame(function () {
+        railTick = false;
+        var x = rail.scrollLeft + railPad(), best = 0, bestD = Infinity;
+        steps.forEach(function (s, k) { var dd = Math.abs(s.offsetLeft - x); if (dd < bestD) { bestD = dd; best = k; } });
+        if (rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4) best = steps.length - 1;
+        setActive(best);
+      });
+    }, { passive: true });
+    setActive(0);
+  }
+
   /* Highlight the menu item for the section in view */
   var spy = $$('[data-spy]').map(function (a) { return { a: a, sec: $(a.getAttribute('href')) }; });
   function onScrollSpy() {
