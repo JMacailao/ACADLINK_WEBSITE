@@ -487,3 +487,12 @@ h2 { font-size: clamp(2rem, 4vw, 3.1rem); font-weight: 800; }
   .jr-copy h3 { font-size: 1.4rem; } .jr-copy p, .jr-copy li { font-size: .92rem; }
   .jr-visual { margin-top: 40px; }
 }
+
+/* Journey stepper has 8 steps: slightly smaller circles so the row and counter fit on phones */
+@media (max-width: 430px) {
+  #jrDots .jr-dots-track { gap: 4px; } #jrDots .jr-dot { width: 30px; height: 30px; font-size: .8rem; }
+}
+@media (max-width: 380px) {
+  #jrDots { gap: 6px; } #jrDots .jr-dots-track { gap: 2px; } #jrDots .jr-dot { width: 26px; height: 26px; font-size: .74rem; } #jrDots .jr-count { font-size: .78rem; }
+  #jrDots .jr-dot.active { transform: scale(1.12); box-shadow: 0 0 0 4px var(--mint-soft); }
+}
