@@ -268,3 +268,18 @@
       .then(function () { btn.disabled = false; btn.innerHTML = btnHTML; });
   });
 })();
+
+/* Student Journey: each step is a short looping video. It loads and plays only while on screen, and pauses when
+   scrolled away. With "reduce motion" (or no JavaScript) the still picture of the last frame is shown instead. */
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('.jr-video'));
+  if (!vids.length) return;
+  var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+  function play(v) { if (still && still.matches) return; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+  if (!('IntersectionObserver' in window)) { vids.forEach(play); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) play(e.target); else if (!e.target.paused) e.target.pause(); });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
+  if (still && still.addEventListener) still.addEventListener('change', function () { vids.forEach(function (v) { if (still.matches) { v.pause(); } }); });
+})();
